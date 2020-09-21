@@ -1,4 +1,5 @@
-import java.util.*;
+import java.util.Arrays;
+import java.util.Scanner;
 
 
 public class Main {
@@ -39,8 +40,23 @@ public class Main {
         }
     }
     public static void main(String[] args){
-        int arr[]= {0,1,2,3,4,5,6,7};
-        MergeSort(arr,0,7);
+
+        Scanner scan = new Scanner(System.in);
+        int input,size;
+        size = scan.nextInt();
+
+        int [] array = new int[size];
+        for (int i = 0; i < size; i++){
+                input = scan.nextInt();
+                array[i] = input;
+        }
         
+        float tinicio, tfinal, tiempo;
+
+        tinicio = System.nanoTime();
+        MergeSort(array,0,size-1);
+        tfinal = System.nanoTime();
+        tiempo = tfinal -tinicio;
+        System.out.println(size+" "+tiempo/1000000000);
     }
 }

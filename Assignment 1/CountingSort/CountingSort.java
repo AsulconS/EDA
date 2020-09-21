@@ -1,6 +1,9 @@
+import java.util.Arrays;
+import java.util.Scanner;
+
 public class Counting {
 
-      int max(int arr[]){
+      public static int max(int arr[]){
             int maximo = arr[0];
 
             for(int i = 1; i < arr.length; ++i)
@@ -10,7 +13,7 @@ public class Counting {
             return maximo;
       }
 
-      void sort(int arr[]) {
+      public static void sort(int arr[]) {
             int n = arr.length;
             int maximo = max(arr) + 1;
 
@@ -37,12 +40,23 @@ public class Counting {
       }
 
       public static void main(String args[]) {
-            Counting countingSort = new Counting();
-            int arr[] = { 2, 2, 1, 0, 5, 6, 2, 4, 6, 7, 5, 3, 3 };
 
-            countingSort.sort(arr);
+            Scanner scan = new Scanner(System.in);
+            int input,size;
+            size = scan.nextInt();
 
-            for (int i = 0; i < arr.length; ++i)
-                  System.out.print(arr[i] + " ");
+            int [] array = new int[size];
+            for (int i = 0; i < size; i++){
+                  input = scan.nextInt();
+                  array[i] = input;
+            }
+            
+            float tinicio, tfinal, tiempo;
+
+            tinicio = System.nanoTime();
+            sort(array);
+            tfinal = System.nanoTime();
+            tiempo = tfinal -tinicio;
+            System.out.println(size+" "+tiempo/1000000000);
       }
 }

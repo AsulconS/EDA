@@ -1,3 +1,6 @@
+import sys
+from time import time
+
 def heapify(array):
     for i in range(1, len(array)):
         j = i
@@ -28,8 +31,18 @@ def heapsort(array):
             array[j], array[largest] = array[largest], array[j]
             j = largest
 
+#input de datos
+archivo = sys.stdin.readlines()
+n = int(archivo[0])
+datos = map(int,archivo[1].split())
+arr = list(datos)
 
-if __name__ == '__main__':
-    arr = [49, 27, 40, 59, 13, 55, 38, 2, 62, 48, 37, 4, 44, 22, 3, 51]
-    heapsort(arr)
-    print(arr)
+#medir tiempos
+start = time()
+heapsort(arr)
+finish = time()
+
+print(n,finish-start)
+
+
+

@@ -1,3 +1,7 @@
+import sys
+from time import time
+
+
 def partition(array, p, r):
     pivot = array[r]
     i = p - 1
@@ -19,6 +23,17 @@ def quicksort_r(array, p, r):
 def quicksort(array):
     quicksort_r(array, 0, len(array) - 1)
 
-arr = [49, 27, 40, 59, 13, 55, 38, 2, 62, 48, 37, 4, 44, 22, 3, 51]
+#input de datos
+archivo = sys.stdin.readlines()
+n = int(archivo[0])
+datos = map(int,archivo[1].split())
+arr = list(datos)
+
+#medir tiempos
+start = time()
 quicksort(arr)
-print(arr)
+finish = time()
+
+print(n,finish-start)
+
+

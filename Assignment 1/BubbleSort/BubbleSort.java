@@ -15,23 +15,23 @@ public class Burbuja{
     }
 
     public static void main(String arg[]){
-        Scanner in = new Scanner(System.in);
-        int tam;
-        tam = in.nextInt();
+        Scanner scan = new Scanner(System.in);
+        int input,size;
+        size = scan.nextInt();
 
-        int [] arr = new int[tam];
-        for (int i = 0; i < tam; i++){
-            int aleatorio = (int) (Math.random()*tam)+1;
-            arr[i] = aleatorio;
+        int [] array = new int[size];
+        for (int i = 0; i < size; i++){
+            input = scan.nextInt();
+            array[i] = input;
         }
         
-        long tinicio, tfinal, tiempo;
+        float tinicio, tfinal, tiempo;
 
-        tinicio = System.currentTimeMillis();
-        bur(arr, tam);
-        tfinal = System.currentTimeMillis();
+        tinicio = System.nanoTime();
+        bur(array, size);
+        tfinal = System.nanoTime();
         tiempo = tfinal -tinicio;
-        System.out.println(tam + " " + tiempo);
+        System.out.println(size+" "+tiempo/1000000000);
     }
 }
 

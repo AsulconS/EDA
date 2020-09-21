@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class Quicksort
 {
@@ -39,8 +40,24 @@ public class Quicksort
 
     public static void main(String[] args)
     {
-        int[] arr = {49, 27, 40, 59, 13, 55, 38, 2, 62, 48, 37, 4, 44, 22, 3, 51};
-        quickSort(arr, 16);
-        System.out.println(Arrays.toString(arr));
+
+        Scanner scan = new Scanner(System.in);
+        int input,size;
+        size = scan.nextInt();
+
+        int [] array = new int[size];
+        for (int i = 0; i < size; i++){
+                input = scan.nextInt();
+                array[i] = input;
+        }
+        
+        float tinicio, tfinal, tiempo;
+
+        tinicio = System.nanoTime();
+        quickSort(array, size);
+        tfinal = System.nanoTime();
+        tiempo = tfinal -tinicio;
+        System.out.println(size+" "+tiempo/1000000000);
+
     }
 }
