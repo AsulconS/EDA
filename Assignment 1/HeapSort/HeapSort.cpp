@@ -1,5 +1,7 @@
 #include <iostream>
 
+using namespace std;
+
 void swap(int& a, int& b)
 {
     int temp {a};
@@ -58,16 +60,24 @@ void heapsort(int* arr, int n)
 
 int main()
 {
-    int* arr {new int[16] {49, 27, 40, 59, 13, 55, 38, 2, 62, 48, 37, 4, 44, 22, 3, 51}};
-    heapsort(arr, 16);
 
-    std::cout << '[';
-    for(int i {0}; i < 15; ++i)
+    int input,size;
+    cin >> size;
+    int array[size];
+    for(int i = 0 ; i < size ; i++ )
     {
-        std::cout << arr[i] << ", ";
+        cin >> input;
+        array[i] = input;
     }
-    std::cout << arr[15] << ']' << std::endl;
+    
+    unsigned t0,t1;
 
-    delete[] arr;
+    t0 = clock();
+    heapsort(array, size);
+    t1 = clock();
+
+    double time = (double(t1-t0)/CLOCKS_PER_SEC);
+    cout << size << " " << time << endl;
+
     return 0;
 }

@@ -18,24 +18,25 @@ void insertion(int arr[],   int tam){
 
 
 int main(){
-    int cantidad;
-    cin>>cantidad;
-    int arr[cantidad]={};
-    int num;
-    srand(time(NULL));
-    for (int i = 0; i < cantidad; i++)
-    {
-        num = 1+ rand() % (cantidad-1);
-        arr[i] = num;
-    }
 
-    unsigned t0, t1;
+    int input,size;
+    cin >> size;
+    int array[size];
+    for(int i = 0 ; i < size ; i++ )
+    {
+        cin >> input;
+        array[i] = input;
+    }
+    
+    unsigned t0,t1;
 
     t0 = clock();
-    insertion(arr, cantidad);
+    insertion(array, size);
     t1 = clock();
 
     double time = (double(t1-t0)/CLOCKS_PER_SEC);
-    cout<<cantidad<<" "<<time<<endl;
+    cout << size << " " << time << endl;
+
+    return 0;
     
 }

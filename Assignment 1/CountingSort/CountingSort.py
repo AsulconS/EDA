@@ -1,3 +1,6 @@
+import sys
+from time import time
+
 def countSort(arr): 
 
 	maximo = max(arr) + 1
@@ -19,9 +22,18 @@ def countSort(arr):
 		arr[i] = output[i] 
 	return arr 
 
-arr = [1,3,6,7,3,7,8,6,4]
+#input de datos
+archivo = sys.stdin.readlines()
+n = int(archivo[0])
+datos = map(int,archivo[1].split())
+arr = list(datos)
 
-print(arr)
+#medir tiempos
+start = time()
 countSort(arr)
-print(arr)
+finish = time()
+
+print(n,finish-start)
+
+
 

@@ -1,5 +1,7 @@
 #include <iostream>
 
+using namespace std; 
+
 int maxNum(int* data, int size)
 {
     int maximo = data[0];
@@ -34,15 +36,25 @@ void countingSort(int* data, int size)
 
 int main()
 {
-    int arr[] = {1, 4, 1, 2, 7, 5, 2};
-    for(size_t i = 0; i < 7; ++i)
-        std::cout << arr[i] << ' ';
-    std::cout << std::endl;
 
-    countingSort(arr, 7);
-    for(size_t i = 0; i < 7; ++i)
-        std::cout << arr[i] << ' ';
-    std::cout << std::endl;
+    int input,size;
+    cin >> size;
+    int array[size];
+    for(int i = 0 ; i < size ; i++ )
+    {
+        cin >> input;
+        array[i] = input;
+    }
+    
+    unsigned t0,t1;
+
+    t0 = clock();
+    countingSort(array, size);
+    t1 = clock();
+
+    double time = (double(t1-t0)/CLOCKS_PER_SEC);
+    cout << size << " " << time << endl;
 
     return 0;
+
 }

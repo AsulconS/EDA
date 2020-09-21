@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <ctime>
 using namespace std;
 
 void selectionSort(int *arr,int size)
@@ -21,11 +21,27 @@ void selectionSort(int *arr,int size)
     }
 }
 
+
+
 int main()
 {
-    int arr[] = { 10 ,9 ,8 ,7 , 6,5 ,4, 3, 2, 1};
-    selectionSort(arr,10);
-    for (int i = 0 ; i < 10 ; i++ )
-         cout << arr[i] << " ";
+    int input,size;
+    cin >> size;
+    int array[size];
+    for(int i = 0 ; i < size ; i++ )
+    {
+        cin >> input;
+        array[i] = input;
+    }
+    
+    unsigned t0,t1;
+
+    t0 = clock();
+    selectionSort(array,size);
+    t1 = clock();
+
+    double time = (double(t1-t0)/CLOCKS_PER_SEC);
+    cout << size << " " << time << endl;
+
     return 0;
 }

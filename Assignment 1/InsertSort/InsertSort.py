@@ -13,8 +13,7 @@ def insert(arr, tam):
         arr[pos] = aux
 
 #input de datos
-archivo = open("input.txt").readlines()
-print(archivo)
+archivo = sys.stdin.readlines()
 n = int(archivo[0])
 datos = map(int,archivo[1].split())
 arr = list(datos)
@@ -24,8 +23,4 @@ start = time()
 insert(arr, len(arr))
 finish = time()
 
-#output en un archivo
-with open('output.txt', 'w') as f:
-    sys.stdout = f # Change the standard output to the file we created.
-    print(n)
-    print(finish-start)
+print(n,finish-start)

@@ -38,12 +38,24 @@ void MergeSort(int arr[],int p,int r){
         }
     }
 int main(){
-    int arr[]= {0,1,2,3,4,5,6,7};
-    MergeSort(arr,0,7);
-    for (int i = 0; i < 8; i++)
+    
+    int input,size;
+    cin >> size;
+    int array[size];
+    for(int i = 0 ; i < size ; i++ )
     {
-        cout << arr[i] << " ";
+        cin >> input;
+        array[i] = input;
     }
     
-        
+    unsigned t0,t1;
+
+    t0 = clock();
+    MergeSort(array,0,size-1);
+    t1 = clock();
+
+    double time = (double(t1-t0)/CLOCKS_PER_SEC);
+    cout << size << " " << time << endl;
+
+    return 0;
 }

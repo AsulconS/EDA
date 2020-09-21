@@ -16,24 +16,25 @@ void bu(int arr[], int n){
 
 
 int main(){
-    int cantidad;
-    cin>>cantidad;
-    int arr[cantidad]={};
-    int num;
-    srand(time(NULL));
-    for (int i = 0; i < cantidad; i++)
+    
+    int input,size;
+    cin >> size;
+    int array[size];
+    for(int i = 0 ; i < size ; i++ )
     {
-        num = 1+ rand() % (cantidad-1);
-        arr[i] = num;
+        cin >> input;
+        array[i] = input;
     }
-
-    unsigned t0, t1;
+    
+    unsigned t0,t1;
 
     t0 = clock();
-    bu(arr, cantidad);
+    bu(array, size);
     t1 = clock();
 
     double time = (double(t1-t0)/CLOCKS_PER_SEC);
-    cout<<cantidad<<" "<<time<<endl;
-    
+    cout << size << " " << time << endl;
+
+    return 0;
+
 }
