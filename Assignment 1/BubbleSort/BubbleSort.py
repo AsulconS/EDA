@@ -14,8 +14,11 @@ def bur(arr, tam):
 #input de datos
 archivo = sys.stdin.readlines()
 n = int(archivo[0])
-datos = map(int,archivo[1].split())
-arr = list(datos)
+arr = []
+for dato in archivo[1].split():
+    arr.append(int(dato))
+ 
+
 
 #medir tiempos
 start = time()
