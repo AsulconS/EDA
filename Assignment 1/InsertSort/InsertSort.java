@@ -34,6 +34,6 @@ public class insercion{
         inser(array, size);
         tfinal = System.nanoTime();
         tiempo = tfinal -tinicio;
-        System.out.println(size+" "+tiempo/1000000000);
+        System.out.print(tiempo/1000000000);
     }
 }

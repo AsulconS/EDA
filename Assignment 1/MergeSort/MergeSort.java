@@ -57,6 +57,6 @@ public class Main {
         MergeSort(array,0,size-1);
         tfinal = System.nanoTime();
         tiempo = tfinal -tinicio;
-        System.out.println(size+" "+tiempo/1000000000);
+        System.out.print(tiempo/1000000000);
     }
 }

@@ -15,17 +15,16 @@ def bur(arr, tam):
 archivo = sys.stdin.readlines()
 n = int(archivo[0])
 arr = []
-for dato in archivo[1].split():
-    arr.append(int(dato))
- 
-
+dato = archivo[1].split()
+for i in range (n):
+    arr.append(int(dato[i]))
 
 #medir tiempos
 start = time()
 bur(arr, len(arr))
 finish = time()
 
-print(n,finish-start)
+print(finish-start,end = '')
 
 
 

@@ -26,14 +26,16 @@ def quicksort(array):
 #input de datos
 archivo = sys.stdin.readlines()
 n = int(archivo[0])
-datos = map(int,archivo[1].split())
-arr = list(datos)
+arr = []
+dato = archivo[1].split()
+for i in range (n):
+    arr.append(int(dato[i]))
 
 #medir tiempos
 start = time()
 quicksort(arr)
 finish = time()
 
-print(n,finish-start)
+print(finish-start,end = '')
 
 
