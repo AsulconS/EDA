@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 def main():
     lang_raw_lst = ['C++', 'Java', 'Python']
-    algo_raw_lst = ['MergeSort', 'QuickSort', 'CountingSort', 'HeapSort']
+    algo_raw_lst = ['MergeSort', 'QuickSort', 'CountingSort', 'HeapSort', 'SelectionSort', 'BubbleSort', 'InsertSort']
     clrs_raw_lst = ['blue', 'red', 'cyan', 'green', 'pink', 'olive', 'brown']
 
     measurements = {}
@@ -15,6 +15,7 @@ def main():
     f = open('output.txt', 'r')
     for line in f:
         ls = line.split()
+        print(ls)
         if ls[0] in lang_raw_lst:
             key = ls[0] + ls[1]
             measurements[key] = [[], []]
@@ -47,14 +48,20 @@ def main():
 
         color_index = 0
         for key in keys:
+            x_axis = np.arange(len(measurements[key][0]))
             y_axis = list(map(float, measurements[key][1]))
-            plt.plot(x_ticks, y_axis, 'tab:' + clrs_raw_lst[color_index])
+            plt.plot(x_axis, y_axis, 'tab:' + clrs_raw_lst[color_index])
             color_index = color_index + 1
 
         y_max_temp = 4.5
+        y_stp_temp = 0.5
+        if algo in algo_raw_lst[4:]:
+            y_max_temp = 450
+            y_stp_temp = 50
+
         plt.ylim([0, y_max_temp])
 
-        y_ticks_lbl = list(map(str, [round(x, 1) for x in np.arange(0, y_max_temp + 0.5, 0.5)]))
+        y_ticks_lbl = list(map(str, [round(x, 1) for x in np.arange(0, y_max_temp + y_stp_temp, y_stp_temp)]))
         y_ticks = list(map(float, y_ticks_lbl))
 
         plt.yticks(y_ticks, y_ticks_lbl)
@@ -83,14 +90,23 @@ def main():
 
         color_index = 0
         for key in keys:
+            x_axis = np.arange(len(measurements[key][0]))
             y_axis = list(map(float, measurements[key][1]))
-            plt.plot(x_ticks, y_axis, 'tab:' + clrs_raw_lst[color_index])
+            plt.plot(x_axis, y_axis, 'tab:' + clrs_raw_lst[color_index])
             color_index = color_index + 1
 
-        y_max_temp = 4.5
+        y_max_temp = 100
+        y_stp_temp = 10
+        if lang == 'C++':
+            y_max_temp = 40
+            y_stp_temp = 4
+        elif lang == 'Java':
+            y_max_temp = 25
+            y_stp_temp = 2.5
+
         plt.ylim([0, y_max_temp])
 
-        y_ticks_lbl = list(map(str, [round(x, 1) for x in np.arange(0, y_max_temp + 0.5, 0.5)]))
+        y_ticks_lbl = list(map(str, [round(x, 1) for x in np.arange(0, y_max_temp + y_stp_temp, y_stp_temp)]))
         y_ticks = list(map(float, y_ticks_lbl))
 
         plt.yticks(y_ticks, y_ticks_lbl)
