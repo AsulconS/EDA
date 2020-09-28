@@ -1,5 +1,5 @@
-
 import os
+
 
 def setTam(size):
     f = open("inputs/input.txt", "r")
@@ -11,6 +11,7 @@ def setTam(size):
         g.write(line)
     g.close()
 
+
 def MakeCommand(language,algorithm,input):
     if language == "C++":
         return "g++ "+algorithm+"/"+algorithm+".cpp && ./a.out < inputs/input.txt"+" && rm a.out"
@@ -20,26 +21,14 @@ def MakeCommand(language,algorithm,input):
         return "java "+algorithm+"/"+algorithm+".java < inputs/input.txt"
 
 
-
-
 Languages = ["C++","Java","Python"]
 
-#"C++","Java","Python"
+Algorithms = ["SelectionSort","MergeSort","QuickSort","CountingSort","HeapSort","BubbleSort","InsertSort"]
 
-Algorithms = ["MergeSort","QuickSort","CountingSort","HeapSort"]
+Tamanios = [10000]
 
-#"SelectionSort","MergeSort","QuickSort","CountingSort","HeapSort","BubbleSort","InsertSort"
+n_repeat = 1
 
-
-#arreglo para los tamaños de las pruebas (hasta 1 millon max input.txt)
-
-Tamanios = []
-for i in range (10000,50000,5000):
-    Tamanios.append(i)
-
-# numero de repeticiones de la misma prueba
-
-n_repeat = 3
 
 for i in Languages:
     for j in Algorithms:
@@ -54,7 +43,3 @@ for i in Languages:
                 os.system(command)
                 os.system("echo -n ' '")
             os.system("echo ' '")
-
-
-
-
