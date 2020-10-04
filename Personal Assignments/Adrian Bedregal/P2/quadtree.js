@@ -29,7 +29,6 @@ class QuadTree
         {
             return false;
         }
-
         if(this.points.length < this.capacity)
         {
             this.points.push(point);
@@ -75,7 +74,6 @@ class QuadTree
                     found.push(p);
                 }
             }
-
             if(this.divided)
             {
                 this.northwest.query(range, found);
@@ -93,7 +91,6 @@ class QuadTree
         noFill();
         rectMode(RADIUS);
         rect(this.boundary.x, this.boundary.y, this.boundary.w, this.boundary.h);
-
         if(this.divided)
         {
             this.northwest.show();
@@ -101,7 +98,6 @@ class QuadTree
             this.southwest.show();
             this.southeast.show();
         }
-
         for(let p of this.points)
         {
             strokeWeight(2);
