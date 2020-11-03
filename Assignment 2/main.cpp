@@ -4,6 +4,7 @@
 
 #include <cstdio>
 #include <cstring>
+#include <vector>
 #include <iostream>
 
 #include <octree.hpp>
@@ -65,11 +66,25 @@ int main(int argc, char* argv[])
                 color[2] = processed.r; // R
             }
         }
+        std::vector<Color> palette;
+        octree.getPalette(palette);
+        Mat paletteImg {32, 32 * (int)palette.size(), CV_8UC3, Scalar{0, 0, 0}};
+        for(int l = 0; l < 32; ++l)
+        {
+            for(int i = 0; i < 32 * palette.size(); ++i)
+            {
+                Vec3b& color {paletteImg.at<Vec3b>(l, i)};
+                color[0] = palette[i / 32].b; // B
+                color[1] = palette[i / 32].g; // G
+                color[2] = palette[i / 32].r; // R
+            }
+        }
 
         char endBuffer[64];
         strcpy(endBuffer, argv[1]);
         printf("SUCCESS!\n");
         imshow("Result", img);
+        imshow("Palette", paletteImg);
 
         k = waitKey(0);
         if(k == 's')

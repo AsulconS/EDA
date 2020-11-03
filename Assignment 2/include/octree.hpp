@@ -6,6 +6,8 @@
 
 #include <cstdio>
 
+#include <vector>
+
 struct Color
 {
     uint32_t r;
@@ -28,6 +30,8 @@ public:
     Octree(const uint8_t t_color_depth = 8);
     ~Octree();
 
+    void getPalette(std::vector<Color>& palette);
+
     void reduction(const uint8_t levels = 1);
 
     void insertColor(const Color& color);
@@ -40,6 +44,7 @@ private:
 
     void remove(ColorNode* node);
     void reduct(ColorNode* node);
+    void pushColors(ColorNode* root, std::vector<Color>& colors);
 };
 
 #endif

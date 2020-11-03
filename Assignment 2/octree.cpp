@@ -25,6 +25,11 @@ void Octree::reduction(const uint8_t levels)
     }
 }
 
+void Octree::getPalette(std::vector<Color>& palette)
+{
+    pushColors(m_root, palette);
+}
+
 void Octree::insertColor(const Color& color)
 {
     uint32_t rbit {};
@@ -129,5 +134,22 @@ void Octree::reduct(ColorNode* node)
         node->color = color_sum;
         node->is_leaf = true;
         node->pixel_count = pixel_count;
+    }
+}
+
+void Octree::pushColors(ColorNode* root, std::vector<Color>& colors)
+{
+    if(root->is_leaf)
+    {
+        uint32_t pixel_count = root->pixel_count;
+        colors.push_back({root->color.r / pixel_count, root->color.g / pixel_count, root->color.b / pixel_count});
+        return;
+    }
+    for(uint8_t i = 0; i < 8; ++i)
+    {
+        if(root->children[i] != nullptr)
+        {
+            pushColors(root->children[i], colors);
+        }
     }
 }
