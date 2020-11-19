@@ -46,4 +46,4 @@ private:
     void pushColors(ColorNode* root, std::vector<Color>& colors);
 };
 
-#endif
+#endif // OCTREE_HPP

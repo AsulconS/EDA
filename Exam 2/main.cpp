@@ -3,14 +3,45 @@
 #include <opencv2/highgui.hpp>
 
 #include <cstdio>
-#include <cstring>
+#include <cstdint>
+
 #include <vector>
 #include <iostream>
 
 #include <octree.hpp>
+#include <kdtree.hpp>
+#include <algorithm.hpp>
 
 using namespace cv;
 
+/*
+int main()
+{
+    int size;
+    std::cin >> size;
+    std::vector<int> data;
+    data.reserve(size);
+
+    int val;
+    for(int i = 0; i < size; ++i)
+    {
+        std::cin >> val;
+        data.push_back(val);
+    }
+
+    int median = findMedian<int, std::vector<int>&>(data, size);
+    printf("Median is %d\n", median);
+
+    return 0;
+}
+*/
+
+int main()
+{
+    return 0;
+}
+
+/*
 int main(int argc, char* argv[])
 {
     if(argc < 3)
@@ -22,7 +53,7 @@ int main(int argc, char* argv[])
     Mat img = imread(image_path, IMREAD_COLOR);
     if(img.empty())
     {
-        std::cout << "Could not read the image: " << image_path << std::endl;
+        std::cerr << "Could not read the image: " << image_path << std::endl;
         return 1;
     }
 
@@ -45,9 +76,10 @@ int main(int argc, char* argv[])
     imshow("Display window", img);
 
     int k = waitKey(0); // Wait for a keystroke in the window
+    uint8_t n_depth = *argv[2] - '0'; // New color depth
     if(k == 's')
     {
-        octree.reduct(*argv[2] - '0');
+        octree.reduct(8 - n_depth);
 
         Color processed {0, 0, 0};
         for(int i = 0; i < img.rows; ++i)
@@ -79,17 +111,19 @@ int main(int argc, char* argv[])
             }
         }
 
-        char end_buffer[64];
-        strcpy(end_buffer, argv[1]);
-        printf("SUCCESS!\n");
+        printf("SUCCESS! Palette with: %llu colors\n", palette.size());
         imshow("Result", img);
         imshow("Palette", palette_img);
 
         k = waitKey(0);
         if(k == 's')
         {
-            imwrite(strcat(end_buffer, "_proc.png"), img);
+            std::string out {argv[1]};
+            std::size_t pos {out.find(".")};
+            out = out.substr(0, pos) + "_proc_" + std::to_string(n_depth) + "b.png";
+            imwrite(out, img);
         }
     }
     return 0;
 }
+*/
