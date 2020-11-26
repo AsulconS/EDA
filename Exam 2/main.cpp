@@ -10,7 +10,6 @@
 
 #include <octree.hpp>
 #include <kdtree.hpp>
-#include <algorithm.hpp>
 
 using namespace cv;
 
@@ -38,6 +37,22 @@ int main()
 
 int main()
 {
+    WPointQueue closest_points;
+
+    vector<vector<int64_t>> points
+    {
+        {3, 119}, {16, 81}, {24, 63}, {70, 80}, {23, 3}, {87, 15},
+        {148, 187}, {126, 164}, {131, 157}, {166, 105}, {155, 50}, {131, 19}
+    };
+    KDTree kdtree(points, 2);
+    kdtree.knn({30, 81}, closest_points, 4);
+
+    for(int i = 0; i < closest_points.size(); ++i)
+    {
+        std::cout << '[' << closest_points.top().first[0] << ',' << closest_points.top().first[1] << ']' << std::endl;
+        closest_points.pop_top();
+    }
+
     return 0;
 }
 

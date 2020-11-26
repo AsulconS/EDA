@@ -15,10 +15,10 @@ def main():
         return
 
     color = ('Blue', 'Green', 'red')
-    n, _, _ = plt.hist(x=img.ravel(), bins=64, range=[0,256], color='orange')
+    n, _, _ = plt.hist(x=img.ravel(), bins=256, range=[0,256], color='orange')
     print(list(map(int, n)))
     for i, col in enumerate(color):
-        plt.hist(x=img[:, :, i].ravel(), bins=64, range=[0,256], color=col, alpha=0.5)
+        plt.hist(x=img[:, :, i].ravel(), bins=256, range=[0,256], color=col, alpha=0.5)
 
     plt.xlabel('Intensity Value')
     plt.ylabel('Count')

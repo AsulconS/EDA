@@ -10,6 +10,11 @@ bool PointComp::operator() (const Point& l, const Point& r) const
     return l[m_axis] < r[m_axis];
 }
 
+bool WPointComp::operator() (const WPoint& l, const WPoint& r) const
+{
+    return l.second < r.second;
+}
+
 void swap(Point& v1, Point& v2)
 {
     Point temp = std::move(v1);
@@ -61,4 +66,14 @@ Point& findMedian(vector<Point>& data, int l, int r, const PointComp& comp)
             r = q - 1;
         }
     }
+}
+
+double distance(const Point& p1, const Point& p2, uint8_t dims)
+{
+    double sum {0};
+    for(uint8_t i = 0; i < dims; ++i)
+    {
+        sum += (double)((p1[i] - p2[i]) * (p1[i] - p2[i]));
+    }
+    return sqrt(sum);
 }
