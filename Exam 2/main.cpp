@@ -6,44 +6,70 @@
 #include <cstdint>
 
 #include <vector>
+#include <string>
+#include <fstream>
 #include <iostream>
 
-#include <octree.hpp>
 #include <kdtree.hpp>
+
+#define B1 127.5l
+#define B2 16256.25l
+#define B3 2072671.875l
 
 using namespace cv;
 
-/*
-int main()
+void processImage(vector<vector<double>>& points, const std::string& path, double imclass)
 {
-    int size;
-    std::cin >> size;
-    std::vector<int> data;
-    data.reserve(size);
-
-    int val;
-    for(int i = 0; i < size; ++i)
+    std::ifstream inputFile;
+    inputFile.open(path);
+    if(!inputFile.is_open())
     {
-        std::cin >> val;
-        data.push_back(val);
+        return;
     }
 
-    int median = findMedian<int, std::vector<int>&>(data, size);
-    printf("Median is %d\n", median);
+    double n, mean;
+    double w, c, v;
+    w = c = v = 0.0l;
+
+    inputFile >> n;
+    inputFile >> mean;
+    double val;
+    for(double i = 0.0l; i < 256.0l; i += 1.0l)
+    {
+        inputFile >> val;
+        w += val * (((i - B1) * (i - B1) * (i - B1)) / B3);
+        c += val * (1 - ((i - B1) * (i - B1)) / B2);
+        v += (val - mean) * (val - mean);
+    }
+    w /= n;
+    c /= n;
+    v /= n;
+    points.push_back({w, c, v, imclass});
+
+    inputFile.close();
+}
+
+int main(int argc, char** argv)
+{
+    if(argc < 2)
+    {
+        return 0;
+    }
+    std::string siters {argv[1]};
+    int iters {std::stoi(siters)};
+
+    vector<vector<double>> points;
+    for(int i = 0; i < 8; ++i)
+        for(int j = 0; j <= iters; ++j)
+            processImage(points, std::string{"./dataset/"} + std::to_string(i) + "/" + std::to_string(j), (double)i);
+
+    for(const auto& p : points)
+        std::cout << p[3] << " | " << '[' << p[0] << ',' << p[1] << ',' << p[2] << ']' << std::endl;
 
     return 0;
-}
-*/
 
-int main()
-{
     WPointQueue closest_points;
 
-    vector<vector<int64_t>> points
-    {
-        {3, 119}, {16, 81}, {24, 63}, {70, 80}, {23, 3}, {87, 15},
-        {148, 187}, {126, 164}, {131, 157}, {166, 105}, {155, 50}, {131, 19}
-    };
     KDTree kdtree(points, 2);
     kdtree.knn({30, 81}, closest_points, 4);
 
@@ -55,90 +81,3 @@ int main()
 
     return 0;
 }
-
-/*
-int main(int argc, char* argv[])
-{
-    if(argc < 3)
-    {
-        return 0;
-    }
-
-    std::string image_path = samples::findFile(argv[1]);
-    Mat img = imread(image_path, IMREAD_COLOR);
-    if(img.empty())
-    {
-        std::cerr << "Could not read the image: " << image_path << std::endl;
-        return 1;
-    }
-
-    Octree octree {};
-    Color read {0, 0, 0};
-
-    for(int i = 0; i < img.rows; ++i)
-    {
-        for(int j = 0; j < img.cols; ++j)
-        {
-            Vec3b& color {img.at<Vec3b>(i, j)};
-            read.b = color[0]; // B
-            read.g = color[1]; // G
-            read.r = color[2]; // R
-
-            octree.insertColor(read);
-        }
-    }
-
-    imshow("Display window", img);
-
-    int k = waitKey(0); // Wait for a keystroke in the window
-    uint8_t n_depth = *argv[2] - '0'; // New color depth
-    if(k == 's')
-    {
-        octree.reduct(8 - n_depth);
-
-        Color processed {0, 0, 0};
-        for(int i = 0; i < img.rows; ++i)
-        {
-            for(int j = 0; j < img.cols; ++j)
-            {
-                Vec3b& color {img.at<Vec3b>(i, j)};
-                read.b = color[0]; // B
-                read.g = color[1]; // G
-                read.r = color[2]; // R
-
-                processed = octree.getProcessedColor(read);
-                color[0] = processed.b; // B
-                color[1] = processed.g; // G
-                color[2] = processed.r; // R
-            }
-        }
-        std::vector<Color> palette;
-        octree.getPalette(palette);
-        Mat palette_img {32, 32 * (int)palette.size(), CV_8UC3, Scalar{0, 0, 0}};
-        for(int l = 0; l < 32; ++l)
-        {
-            for(int i = 0; i < 32 * palette.size(); ++i)
-            {
-                Vec3b& color {palette_img.at<Vec3b>(l, i)};
-                color[0] = palette[i / 32].b; // B
-                color[1] = palette[i / 32].g; // G
-                color[2] = palette[i / 32].r; // R
-            }
-        }
-
-        printf("SUCCESS! Palette with: %llu colors\n", palette.size());
-        imshow("Result", img);
-        imshow("Palette", palette_img);
-
-        k = waitKey(0);
-        if(k == 's')
-        {
-            std::string out {argv[1]};
-            std::size_t pos {out.find(".")};
-            out = out.substr(0, pos) + "_proc_" + std::to_string(n_depth) + "b.png";
-            imwrite(out, img);
-        }
-    }
-    return 0;
-}
-*/

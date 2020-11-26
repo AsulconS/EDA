@@ -7,16 +7,27 @@ def main():
     if len(sys.argv) < 2:
         return
 
+    for i in range(8):
+        for j in range(int(sys.argv[1]) + 1):
+            p = f'./imgDataset/{i}/{j}.jpg'
+            img = cv2.imread(p)
+            if img is None:
+                print('Cannot Found or Read', p)
+                continue
+
+            dimensions = img.shape
+
+            color = ('Blue', 'Green', 'red')
+            n, _, _ = plt.hist(x=img.ravel(), bins=256, range=[0,256], color='orange')
+            file = open(f'./dataset/{i}/{j}', 'w')
+            file.write(f'{dimensions[0] * dimensions[1]} {n.mean()}\n')
+            file.write(' '.join(list(map(str, map(int, n)))))
+            file.write('\n')
+            file.close()
+
+    return # remove this for plotting
+
     plt.style.use('ggplot')
-
-    img = cv2.imread(sys.argv[1])
-    if img is None:
-        print('Cannot Found or Read', sys.argv[1])
-        return
-
-    color = ('Blue', 'Green', 'red')
-    n, _, _ = plt.hist(x=img.ravel(), bins=256, range=[0,256], color='orange')
-    print(list(map(int, n)))
     for i, col in enumerate(color):
         plt.hist(x=img[:, :, i].ravel(), bins=256, range=[0,256], color=col, alpha=0.5)
 

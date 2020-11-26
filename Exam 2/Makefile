@@ -6,7 +6,7 @@ INCLUDE=-I./include/ -I/usr/include/opencv4/
 OPENCV_LIBS=`pkg-config --libs --cflags --static opencv4`
 
 TARGET=main
-OBJECTS=algorithm.o octree.o kdtree.o $(TARGET).o
+OBJECTS=algorithm.o kdtree.o $(TARGET).o
 
 all: build trash
 
@@ -18,9 +18,6 @@ $(TARGET).o: $(TARGET).cpp
 
 algorithm.o: algorithm.cpp
 	$(CXX) -c $(CXX_FLAGS) $(INCLUDE) algorithm.cpp
-
-octree.o: octree.cpp
-	$(CXX) -c $(CXX_FLAGS) $(INCLUDE) octree.cpp
 
 kdtree.o: kdtree.cpp
 	$(CXX) -c $(CXX_FLAGS) $(INCLUDE) kdtree.cpp

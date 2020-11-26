@@ -17,7 +17,7 @@
 using std::pair;
 using std::vector;
 using std::priority_queue;
-using Point = vector<int64_t>;
+using Point = vector<double>;
 using WPoint = pair<Point, double>;
 
 class PointComp
