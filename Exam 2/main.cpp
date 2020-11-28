@@ -19,10 +19,13 @@
 
 using namespace cv;
 
-void processImage(vector<vector<double>>& points, const std::string& path, double imclass)
+void processImage(vector<vector<double>>& points, std::ofstream& ofs, const std::string& path, double imclass)
 {
     std::ifstream inputFile;
     inputFile.open(path);
+
+    if(!inputFile.is_open())
+        return;
 
     double n, mean;
     double w, c, v;
@@ -43,6 +46,9 @@ void processImage(vector<vector<double>>& points, const std::string& path, doubl
     v /= n;
     points.push_back({w, c, v, imclass});
 
+    if(ofs.is_open())
+        ofs << w << ' ' << c << ' ' << v << ' ' << imclass << std::endl;
+
     inputFile.close();
 }
 
@@ -57,16 +63,21 @@ int main(int argc, char** argv)
     int k {std::stoi(sk)};
     int iters {std::stoi(siters)};
 
+    std::ofstream outputFile;
+    outputFile.open("./plot/data.pt");
     vector<vector<double>> points;
     for(int i = 0; i < 8; ++i)
-        for(int j = 0; j <= iters; ++j)
-            processImage(points, std::string{"./dataset/"} + std::to_string(i) + "/" + std::to_string(j), (double)i);
+        for(int j = 0; j < iters; ++j)
+            processImage(points, outputFile, "./dataset/" + std::to_string(i) + "/" + std::to_string(j), (double)i);
+    outputFile.close();
 
     KDTree kdtree(points, 2);
     WPointQueue closest_points;
 
+    outputFile.open("./plot/pred.pt");
     vector<vector<double>> predictions;
-    processImage(predictions, std::string{argv[2]}, -1.0);
+    processImage(predictions, outputFile, argv[2], -1.0);
+    outputFile.close();
 
     std::cout << "Predict for: " << std::endl;
     std::cout << "\t? | ["
