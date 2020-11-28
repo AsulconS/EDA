@@ -3,7 +3,7 @@ CXX_FLAGS=-std=c++11
 
 INCLUDE=-I./include/ -I/usr/include/opencv4/
 
-OPENCV_LIBS=`pkg-config --libs --cflags --static opencv4`
+OPENCV_LIBS=#`pkg-config --libs --cflags --static opencv4`
 
 TARGET=main
 OBJECTS=algorithm.o kdtree.o $(TARGET).o

@@ -1,7 +1,3 @@
-#include <opencv2/core.hpp>
-#include <opencv2/imgcodecs.hpp>
-#include <opencv2/highgui.hpp>
-
 #include <cstdio>
 #include <cstdint>
 
@@ -16,8 +12,6 @@
 #define B1 127.5
 #define B2 16256.25
 #define B3 2072671.875
-
-using namespace cv;
 
 void processImage(vector<vector<double>>& points, std::ofstream& ofs, const std::string& path, double imclass)
 {
