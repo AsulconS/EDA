@@ -4,7 +4,6 @@
 #include <cmath>
 #include <cstdint>
 
-#include <queue>
 #include <vector>
 #include <random>
 #include <utility>
@@ -16,7 +15,6 @@
 
 using std::pair;
 using std::vector;
-using std::priority_queue;
 using Point = vector<double>;
 using WPoint = pair<Point, double>;
 

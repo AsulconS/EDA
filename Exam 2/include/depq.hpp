@@ -2,11 +2,9 @@
 #define DEPQ_HPP
 
 #include <set>
-#include <vector>
 #include <functional>
 
 using std::set;
-using std::vector;
 using std::less;
 
 template <typename T, typename Compare = less<T>>

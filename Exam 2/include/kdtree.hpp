@@ -7,7 +7,6 @@
 
 struct KDNode
 {
-    uint8_t axis;
     Point point;
 
     KDNode* left;

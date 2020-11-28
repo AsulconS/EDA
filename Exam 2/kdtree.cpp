@@ -25,7 +25,7 @@ void KDTree::knn(KDNode* root, const Point& query_point, WPointQueue& points_que
     }
 
     double pdistance {distance(root->point, query_point, m_dims)};
-    if(points_queue.size() < k * 2)
+    if(points_queue.size() < k)
     {
         points_queue.push(std::make_pair(root->point, pdistance));
     }
@@ -77,7 +77,7 @@ KDNode* KDTree::buildKDTree(vector<Point>& points, int l, int r, uint8_t depth)
     int n {r - l + 1};
     int m {l + n / 2};
     Point& median = findMedian(points, l, r, PointComp {(uint8_t)(depth % m_dims)});
-    KDNode* root  = new KDNode {(uint8_t)(depth % m_dims), median, nullptr, nullptr};
+    KDNode* root  = new KDNode {median, nullptr, nullptr};
     root->left = buildKDTree(points, l, m - 1, depth + 1);
     root->right = buildKDTree(points, m + 1, r, depth + 1);
 

@@ -23,13 +23,6 @@ void processImage(vector<vector<double>>& points, const std::string& path, doubl
 {
     std::ifstream inputFile;
     inputFile.open(path);
-    /*
-    if(!inputFile.is_open())
-    {
-        std::cout << "Failed to open image " << path << std::endl;
-        return;
-    }
-    */
 
     double n, mean;
     double w, c, v;
@@ -55,21 +48,19 @@ void processImage(vector<vector<double>>& points, const std::string& path, doubl
 
 int main(int argc, char** argv)
 {
-    if(argc < 3)
+    if(argc < 4)
     {
         return 0;
     }
+    std::string sk {argv[3]};
     std::string siters {argv[1]};
+    int k {std::stoi(sk)};
     int iters {std::stoi(siters)};
 
     vector<vector<double>> points;
     for(int i = 0; i < 8; ++i)
         for(int j = 0; j <= iters; ++j)
             processImage(points, std::string{"./dataset/"} + std::to_string(i) + "/" + std::to_string(j), (double)i);
-
-    // Print all images read
-    //for(const auto& p : points)
-        //std::cout << p[3] << " | " << '[' << p[0] << ',' << p[1] << ',' << p[2] << ']' << std::endl;
 
     KDTree kdtree(points, 2);
     WPointQueue closest_points;
@@ -82,7 +73,7 @@ int main(int argc, char** argv)
               << predictions[0][0] << ','
               << predictions[0][1] << ','
               << predictions[0][2] << ']' << std::endl;
-    kdtree.knn(predictions[0], closest_points, 8);
+    kdtree.knn(predictions[0], closest_points, k);
 
     std::map<double, pair<std::string, int>> classmap;
     classmap[0.0].first = "Interval 0: 19:00->04:00";
@@ -94,8 +85,9 @@ int main(int argc, char** argv)
     classmap[6.0].first = "Interval 6: 17:00->18:00";
     classmap[7.0].first = "Interval 7: 18:00->19:00";
 
-    std::cout << "\nK-Nearest Neighbours (k=8):" << std::endl;
-    for(int i = 0; i < closest_points.size(); ++i)
+    printf("\nK-Nearest Neighbours (k=%d):\n", k);
+    int limit = closest_points.size();
+    for(int i = 0; i < limit; ++i)
     {
         ++classmap[closest_points.top().first[3]].second;
         std::cout << '\t' << closest_points.top().first[3] << " | " << '['
